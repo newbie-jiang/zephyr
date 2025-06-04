@@ -28,8 +28,8 @@ def build_elf(elf_file, include_dirs):
     #
     # Open the ELF file up and find our entry point
     #
-    fp = open(elf_file, "rb")
-    ef = elftools.elf.elffile.ELFFile(fp)
+    with open(elf_file, "rb") as fp:
+        ef = elftools.elf.elffile.ELFFile(fp)
 
     symtab = ef.get_section_by_name(".symtab")
     entry_addr = symtab.get_symbol_by_name(ENTRY_SYM)[0].entry.st_value
